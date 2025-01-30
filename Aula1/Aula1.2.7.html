@@ -1,0 +1,43 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <body>
+        <!-- arquivo: save-e-restore.html -->
+        <!-- este código vai dentro do body -->
+        <canvas id="meu_canvas" width="200" height="200">
+            Seu navegador não suporta o Canvas do HTML5. <br>
+            Procure atualizá-lo
+        </canvas>
+
+        <script>
+            // Canvas Contexto
+            var canvas = document.getElementById('meu_canvas');
+            // Obtendo o contexto gráfico
+            var context = canvas.getContext('2d');
+
+            //Um pequeno quadrado verde
+            context.fillStyle = 'green';
+            context.fillRect(50, 50, 25, 25);
+            
+            //Salvando a configuração e subindo na pilha
+            context.save();
+
+            //Agora um pequeno quadrado roxo
+            context.fillStyle = 'purple';
+            context.fillRect(100, 50, 25, 25);
+            
+            //Voltando para nível anterior da pilha
+            context.restore();
+
+            //Voltou para o verde!
+            context.fillRect(150, 50, 25, 25);
+        </script>
+        
+    </body>
+
+</html>

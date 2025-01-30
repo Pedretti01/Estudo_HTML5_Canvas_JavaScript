@@ -1,0 +1,72 @@
+<!-- Arquivo teclado-teste-2.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Movimentando personagem com keydown</title>
+</head>
+
+<body>
+    <canvas id="canvas_teclado_2" width="500" height="500"></canvas>
+
+    <script>
+        // Referências do Canvas
+        const canvas = document.getElementById('canvas_teclado_2');
+        const context = canvas.getContext('2d');
+
+        // Posição Inicial do Personagem
+        let posicao = 0;
+        desenharPersonagem();
+
+        // Criando Controlador de Teclado
+        const teclado = new Teclado(document);
+
+        // Iniciar a animação
+        requestAnimationFrame(animar);
+
+        function animar() {
+            if (teclado.pressionada("ArrowLeft")) { // Seta para Esquerda
+                posicao -= 10;
+                if (posicao < 0) posicao = 0; // Limita à borda esquerda
+            }
+            if (teclado.pressionada("ArrowRight")) { // Seta para Direita
+                posicao += 10;
+                if (posicao > canvas.width - 20) posicao = canvas.width - 20; // Limita à borda direita
+            }
+
+            desenharPersonagem();
+            requestAnimationFrame(animar); // Chama o próximo frame
+        }
+
+        // Função para desenhar o personagem
+        function desenharPersonagem() {
+            context.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas
+            context.fillStyle = 'black'; // Define a cor do personagem
+            context.fillRect(posicao, 100, 20, 50); // Desenha o personagem
+        }
+
+        // Classe Teclado
+        function Teclado(elemento) {
+            this.pressionadas = {}; // Objeto para armazenar teclas pressionadas
+            const teclado = this;
+
+            // Adiciona evento de tecla pressionada
+            elemento.addEventListener('keydown', (evento) => {
+                console.log(evento.key); // Verificar tecla no console
+                teclado.pressionadas[evento.key] = true;
+            });
+
+            // Adiciona evento de tecla liberada
+            elemento.addEventListener('keyup', (evento) => {
+                teclado.pressionadas[evento.key] = false;
+            });
+        }
+
+        // Método para verificar se uma tecla está pressionada
+        Teclado.prototype.pressionada = function (tecla) {
+            return !!this.pressionadas[tecla]; // Retorna true se a tecla estiver pressionada
+        };
+    </script>
+</body>
+
+</html>

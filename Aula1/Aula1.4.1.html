@@ -1,0 +1,52 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <!-- arquivo: orientação-objetos.html -->
+    <body>
+        <h2>Informações dos Carros</h2>
+
+        <!-- Divs para mostrar as informações na página -->
+        <div id="infoCarro"></div>
+        
+        <script>
+            //Função Carro
+            function Carro(cor, velocMaxima) {
+                this.cor = cor;
+                this.velocMaxima = velocMaxima;
+                this.velocAtual = 0;
+            }
+
+            //Criano um método dentro do construtor da classe
+            Carro.prototype.acelerar = function() {
+                this.velocAtual += 10;
+            }
+
+            //Instanciando objetos na classe Carro
+            var meuCarro = new Carro('vermelho', 250);
+            var oponente = new Carro('azul', 300);
+            
+            //Chamando um metodo somente em um objeto
+            meuCarro.acelerar();
+
+            //Exibindo as informações no Console (para debug)
+            console.log(meuCarro.velocAtual);
+            console.log(oponente.velocAtual);
+
+            //Exibindo as informações na página
+            var info = `
+            <p>Carro: ${meuCarro.cor}: Velocidade Atual = ${meuCarro.velocAtual} km/h</p>
+            <p>Carro: ${oponente.cor}: Velocidade Atual = ${oponente.velocAtual} km/h</p>
+            `;
+
+            //Atualizando o conteúdo da div com id "infoCarro"
+            document.getElementById('infoCarro').innerHTML = info;
+        </script>
+        
+    </body>
+
+</html>

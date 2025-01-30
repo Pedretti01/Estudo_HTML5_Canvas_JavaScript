@@ -1,0 +1,170 @@
+<!-- Arquivo teclado-teste-3.html -->
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Um herói que atira</title>
+    </head>
+
+    <body>
+        <!-- Canvas onde tudo será desenhado -->
+        <canvas id="canvas_teclado_3" width="500" height="500"></canvas>
+
+        <script>
+            // Inicializa o canvas e o contexto
+            var canvas = document.getElementById('canvas_teclado_3');
+            var context = canvas.getContext('2d');
+
+            // Códigos das teclas
+            var SETA_ESQUERDA = 37;
+            var SETA_DIREITA = 39;
+            var ESPACO = 32;
+
+            // ===========================
+            // Classe Teclado
+            function Teclado(elemento) {
+                this.elemento = elemento;
+                this.pressionadas = [];
+                this.funcoesDisparo = [];
+                this.disparadas = [];
+
+                var teclado = this;
+
+                // Evento de tecla pressionada
+                elemento.addEventListener('keydown', function (evento) {
+                    var tecla = evento.keyCode;
+                    teclado.pressionadas[tecla] = true;
+
+                    if (teclado.funcoesDisparo[tecla] && !teclado.disparadas[tecla]) {
+                        teclado.disparadas[tecla] = true;
+                        teclado.funcoesDisparo[tecla]();
+                    }
+                });
+
+                // Evento de tecla solta
+                elemento.addEventListener('keyup', function (evento) {
+                    teclado.pressionadas[evento.keyCode] = false;
+                    teclado.disparadas[evento.keyCode] = false;
+                });
+            }
+
+            Teclado.prototype = {
+                pressionada: function (tecla) {
+                    return this.pressionadas[tecla];
+                },
+                disparou: function (tecla, callback) {
+                    this.funcoesDisparo[tecla] = callback;
+                }
+            };
+
+            // ===========================
+            // Classe Animacao
+            function Animacao(context) {
+                this.context = context;
+                this.sprites = [];
+                this.ligado = false;
+            }
+
+            Animacao.prototype = {
+                novoSprite: function (sprite) {
+                    this.sprites.push(sprite);
+                },
+                ligar: function () {
+                    this.ligado = true;
+                    this.proximoFrame();
+                },
+                proximoFrame: function () {
+                    if (!this.ligado) return;
+
+                    // Limpa o canvas
+                    this.context.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Atualiza e desenha os sprites
+                    for (let sprite of this.sprites) {
+                        sprite.atualizar();
+                        sprite.desenhar();
+                    }
+
+                    // Chama o próximo frame
+                    requestAnimationFrame(() => this.proximoFrame());
+                }
+            };
+
+            // ===========================
+            // Classe Heroi
+            function Heroi(context, teclado, animacao) {
+                this.context = context;
+                this.teclado = teclado;
+                this.animacao = animacao;
+                this.x = 0;
+                this.y = 100;
+            }
+
+            Heroi.prototype = {
+                atualizar: function () {
+                    if (this.teclado.pressionada(SETA_ESQUERDA) && this.x > 0) {
+                        this.x -= 5;
+                    }
+                    if (this.teclado.pressionada(SETA_DIREITA) && this.x < this.context.canvas.width - 20) {
+                        this.x += 5;
+                    }
+                },
+                desenhar: function () {
+                    this.context.fillStyle = 'blue';
+                    this.context.fillRect(this.x, this.y, 20, 50);
+                },
+                atirar: function () {
+                    var tiro = new Bola(this.context);
+                    tiro.x = this.x + 10;
+                    tiro.y = this.y + 10;
+                    tiro.raio = 3;
+                    tiro.cor = 'red';
+                    tiro.velocidadeX = 10;
+
+                    this.animacao.novoSprite(tiro);
+                }
+            };
+
+            // ===========================
+            // Classe Bola (Tiro)
+            function Bola(context) {
+                this.context = context;
+                this.x = 0;
+                this.y = 0;
+                this.raio = 5;
+                this.velocidadeX = 0;
+                this.cor = 'black';
+            }
+
+            Bola.prototype = {
+                atualizar: function () {
+                    this.x += this.velocidadeX;
+                },
+                desenhar: function () {
+                    this.context.beginPath();
+                    this.context.arc(this.x, this.y, this.raio, 0, 2 * Math.PI, false);
+                    this.context.fillStyle = this.cor;
+                    this.context.fill();
+                }
+            };
+
+            // ===========================
+            // Inicialização
+            var teclado = new Teclado(document);
+            var animacao = new Animacao(context);
+
+            var heroi = new Heroi(context, teclado, animacao);
+            animacao.novoSprite(heroi);
+
+            // Configura tecla de disparo
+            teclado.disparou(ESPACO, function () {
+                heroi.atirar();
+            });
+
+            // Liga a animação
+            animacao.ligar();
+        </script>
+
+    </body>
+    
+</html>

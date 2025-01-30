@@ -1,0 +1,44 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <body>
+        <!-- arquivo: caminhos.html -->
+        <!-- este código vai dentro do body -->
+        <canvas id="meu_canvas" width="300" height="300">
+            Seu navegador não suporta o Canvas do HTML5. <br>
+            Procure atualizá-lo
+        </canvas>
+
+        <script>
+            // Canvas Contexto
+            var canvas = document.getElementById('meu_canvas');
+            // Obtendo o contexto gráfico
+            var context = canvas.getContext('2d');
+
+            // Patch = Caminhos (Para desenhos mais complexos)
+
+            //Iniciar o caminho (apaga desenhos anteriores)
+            context.beginPath();
+
+            //Desenhando uma estrela (moveTo = Ponto Inicial / lineTo = Traça uma Linha até o ponto indicado )
+            context.moveTo(75, 250); // Ponto Inicial
+            context.lineTo(150, 50); // Ponto 1
+            context.lineTo(225, 250); // Ponto 2
+            context.lineTo(50, 120); // Ponto 3
+            context.lineTo(250, 120); // Ponto 4
+            context.lineTo(75, 250); // Ponto 5 (Retorna ao Ponto Inicial)
+
+            //Configurar a largura e cor da linha
+            context.lineWidth = 2;
+            context.strokeStyle = 'red';
+            context.stroke(); // Desenha o caminho
+        </script>
+        
+    </body>
+
+</html>

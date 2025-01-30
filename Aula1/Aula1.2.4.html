@@ -1,0 +1,81 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <body>
+        <!-- arquivo: arcos.html -->
+        <!-- este código vai dentro do body -->
+        <canvas id="meu_canvas" width="300" height="300">
+            Seu navegador não suporta o Canvas do HTML5. <br>
+            Procure atualizá-lo
+        </canvas>
+
+        <script>
+            //Desenhando Arcos e Circunferências (São Criados com o método "arc")
+            //Parâmetros: x, y: Coordenadas do Ponto Central da Circuferência;
+            //            raio: Raio da Circunferência em pixels;
+            //            startAngle: Ângulo Inicial em Radianos;
+            //            endAngle: Ângulo Final em Radianos;
+            //            sentido: Indica direção que o desenho é feito - "false" (sentido anti-horário) e "true" (sentido horário)
+
+            //pi radianos = 180° (meia volta) / 2pi radianos = 360° (volta completa)
+            //JavaScript possui a constante Math.PI = 3.141592653589793!
+            
+            //Convertendo Graus para Radianos
+            //var graus = ...;
+            //var radianos = graus * Math.PI / 180;
+
+            // Canvas Contexto
+            var canvas = document.getElementById('meu_canvas');
+            // Obtendo o contexto gráfico
+            var context = canvas.getContext('2d');
+
+            //Cores e espessura da linha
+            context.fillStyle = 'gray';
+            context.strokeStyle = 'black';
+            context.lineWidth = 2;
+
+            //Primeiro Arco:
+            //Novo Path
+            context.beginPath();
+            //Desenha
+            context.arc(50, 50, 40, 90*Math.PI/180, 270*Math.PI/180, false);
+            //Preenchimento
+            context.fill();
+            //Contorno
+            context.stroke();
+
+            //Segundo Arco:
+            //Novo Path
+            context.beginPath();
+            //Desenha
+            context.arc(150, 50, 40, 90*Math.PI/180, 270*Math.PI/180, true);
+            //Preenchimento
+            context.fill();
+            //Contorno
+            context.stroke();
+
+            //Circunferência completa
+            context.beginPath();
+            context.arc(250, 50, 40, 0, 2*Math.PI);
+            context.fill();
+            context.stroke();
+
+            //Teste:
+            //Novo Path
+            context.beginPath();
+            //Desenha
+            context.arc(50, 200, 40, 90*Math.PI/180, 270*Math.PI/180, false);
+            context.lineTo(150, 240);
+            context.arc(150, 200, 40, 90*Math.PI/180, 270*Math.PI/180, true);
+            context.fill();
+            context.stroke();
+        </script>
+        
+    </body>
+
+</html>

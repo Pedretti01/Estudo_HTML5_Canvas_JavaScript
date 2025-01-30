@@ -1,0 +1,46 @@
+<!-- Arquivo: animacao-teste.html-->
+<!DOCTYPE html>
+
+    <html>
+        <head>
+            <title>Primeiro Teste: Loop de Animação com Sprites</title>
+            <script src="animacao.js"></script>
+            <script src="bola.js"></script>
+        </head>
+
+    <body>
+        <!-- Canvas para a animação -->
+        <canvas id="canvas_animacao" width="500" height="500"></canvas>
+
+        <script>
+            // Referências para o Canvas
+            var canvas = document.getElementById('canvas_animacao');
+            var context = canvas.getContext('2d');
+
+            // --- Inicialização dos Sprites ---
+            var b1 = new Bola(context);
+            b1.x = 100;
+            b1.y = 200;
+            b1.velocidadeX = 2;
+            b1.velocidadeY = -3;
+            b1.cor = 'red';
+            b1.raio = 20;
+
+            var b2 = new Bola(context);
+            b2.x = 200;
+            b2.y = 100;
+            b2.velocidadeX = -2;
+            b2.velocidadeY = 3;
+            b2.cor = 'blue';
+            b2.raio = 30;
+
+            // --- Loop de Animação ---
+            var animacao = new Animacao(context);
+            animacao.novoSprite(b1);
+            animacao.novoSprite(b2);
+            
+            animacao.ligar();
+        </script>
+    </body>
+
+</html>

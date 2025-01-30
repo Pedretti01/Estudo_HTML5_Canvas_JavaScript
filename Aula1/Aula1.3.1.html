@@ -1,0 +1,61 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <body>
+        <!-- arquivo: requestAnimationFrame.html -->
+        <!-- este código vai dentro do body -->
+        <canvas id="meu_canvas" width="300" height="300">
+            Seu navegador não suporta o Canvas do HTML5. <br>
+            Procure atualizá-lo
+        </canvas>
+
+        <script>
+            // Canvas Contexto
+            var canvas = document.getElementById('meu_canvas');
+            // Obtendo o contexto gráfico
+            var context = canvas.getContext('2d');
+
+            //Dados da Bola
+            var x = 20;
+            var y = 100;
+            var raio = 5;
+
+            //Momento Inicial
+            var anterior = new Date().getTime();
+
+            //Inicia a animação
+            requestAnimationFrame(mexerBola);
+
+            //Função de animação
+            function mexerBola() {
+                //Aqui uma bolinha se deslocará
+                //Limpar Canvas
+                context.clearRect(0,0, canvas.width, canvas.height);
+
+                //Desenhar a bola
+                context.beginPath();
+                context.arc(x, y, raio, 0, Math.PI*2);
+                context.fill();
+
+                //Calcular o tempo decorrido
+                var agora = new Date().getTime();
+                var decorrido = agora - anterior;
+
+                //Deslocar 20 pixels por segundo
+                var velocidade = 20;
+                x += velocidade * decorrido / 1000;
+
+                //Guardamos o instante para o próximo ciclo da animação
+                anterior = agora;
+                requestAnimationFrame(mexerBola);
+            }
+        </script>
+        
+    </body>
+
+</html>

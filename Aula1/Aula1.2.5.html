@@ -1,0 +1,62 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <body>
+        <!-- arquivo: Imagens-1.html -->
+        <!-- este código vai dentro do body -->
+        <canvas id="meu_canvas" width="800" height="500">
+            Seu navegador não suporta o Canvas do HTML5. <br>
+            Procure atualizá-lo
+        </canvas>
+
+        <script>
+            //Objeto Imagem do JavaScript - Método drawImage (imagem, x, y, largura, altura): desenha a imagem inteira, na posição e tamanho especificados;
+
+            // Canvas Contexto
+            var canvas = document.getElementById('meu_canvas');
+            // Obtendo o contexto gráfico
+            var context = canvas.getContext('2d');
+
+            //Carregar a imagem
+            var imagem = new Image();
+            imagem.src = 'img/ovni.png';
+            imagem.onload = function(){
+                //Aqui usaremos drawImage
+                    //Começa na posição 20
+                    var x = 20;
+                    //Define o ponto de partida vertical (y)
+                    var y = 20;
+
+                    //Desenha as imagens
+                    for (var i = 1; i <= 5; i++) {
+                        context.drawImage(imagem, x, y, 64, 32);
+                        x += 70;
+                    }
+
+                    y = 70;
+                    x = 20; 
+                    
+                    for (var i = 1; i <= 5; i++) {
+                        context.drawImage(imagem, x, y, 32, 16);
+                        x += 40;
+                    }
+
+                    y = 100;
+                    x = 20; 
+
+                    for (var i = 1; i <= 5; i++) {
+                        context.drawImage(imagem, x, y, 128, 64);
+                        x += 140;
+                    }
+                };
+            
+        </script>
+        
+    </body>
+
+</html>

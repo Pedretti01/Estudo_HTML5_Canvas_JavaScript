@@ -1,0 +1,45 @@
+<!-- Arquivo teclado-teste-1.html -->
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Movimentando personagem com keydown</title>
+    </head>
+    
+    <body>
+        <canvas id="canvas_teclado_1" width="500" height="500"></canvas>
+
+        <script>
+            //Interação com o Teclado vai aqui
+            //Referencias do Canvas
+            var canvas = document.getElementById('canvas_teclado_1');
+            var context = canvas.getContext('2d');
+
+            //Posição Inicial do Personagem
+            var posicao = 0;
+            desenharPersonagem();
+
+            document.addEventListener('keydown', function(evento) {
+                if (evento.key == "ArrowLeft") { //Seta para Esquerda
+                    posicao -= 10;
+                    desenharPersonagem();
+                }
+                else if (evento.key == "ArrowRight") { //Seta para Direita
+                    posicao += 10;
+                    desenharPersonagem();
+                }                
+            });
+
+            //Um personagem não muito Simpático, mas...
+            function desenharPersonagem() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.fillStyle = 'black';
+                context.fillRect(posicao, 100, 20, 50);
+            }
+
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,29 @@
+<html>
+
+    <head>
+        <title>
+            Processando o Canvas na seção HEAD
+        </title>
+    </head>
+
+    <body>
+        <!-- arquivo: retangulo-1.html -->
+        <!-- este código vai dentro do body -->
+        <canvas id="meu_canvas" width="200" height="200">
+            Seu navegador não suporta o Canvas do HTML5. <br>
+            Procure atualizá-lo
+        </canvas>
+
+        <script>
+            // Canvas Contexto
+            var canvas = document.getElementById('meu_canvas');
+            // Obtendo o contexto gráfico
+            var context = canvas.getContext('2d');
+
+            // Desenhar um Retângulo (x, y, largura, altura)
+            context.fillRect(50, 50, 100, 100); //Fill = Preenchimento / Stroke = Contorno
+        </script>
+
+    </body>
+
+</html>

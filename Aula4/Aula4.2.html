@@ -1,0 +1,62 @@
+<!-- arquivo: clipping.html -->
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Spritesheet - Recorte e Enquadramento (Clipping)</title>
+    </head>
+
+    <body>
+        <!-- Canvas onde a imagem será desenhada -->
+        <canvas id="canvas_clipping" width="500" height="500"></canvas>
+
+        <script>
+            // Carrega a imagem da spritesheet
+            var imgSonic = new Image();
+            imgSonic.src = 'img/spritesheet.png';
+
+            imgSonic.onload = function () {
+                // Obtém o contexto do canvas
+                var canvas = document.getElementById('canvas_clipping');
+                var context = canvas.getContext('2d');
+
+                // Número total de linhas e colunas na spritesheet
+                var linhas = 3;   // Total de linhas
+                var colunas = 8;  // Total de colunas
+
+                // Dimensão de cada quadro (frame) na spritesheet
+                var largura = imgSonic.width / colunas;
+                var altura = imgSonic.height / linhas;
+
+                // Define o quadro que você deseja desenhar
+                var queroLinha = 2; // Começa do índice 0
+                var queroColuna = 7;
+
+                // Posição de recorte na spritesheet
+                var xOrigem = largura * queroColuna;
+                var yOrigem = altura * queroLinha;
+
+                // Posição e tamanho no canvas onde será desenhado
+                var xDestino = 100; // Posição X no canvas
+                var yDestino = 100; // Posição Y no canvas
+                var larguraDestino = largura; // Mantém o tamanho original
+                var alturaDestino = altura;
+
+                // Desenha o quadro recortado da spritesheet no canvas
+                context.drawImage(
+                    imgSonic,       // Imagem fonte
+                    xOrigem,        // X de recorte
+                    yOrigem,        // Y de recorte
+                    largura,        // Largura do recorte
+                    altura,         // Altura do recorte
+                    xDestino,       // X no canvas
+                    yDestino,       // Y no canvas
+                    larguraDestino, // Largura no canvas
+                    alturaDestino   // Altura no canvas
+                );
+            };
+        </script>
+
+    </body>
+    
+</html>
